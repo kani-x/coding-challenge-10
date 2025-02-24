@@ -71,3 +71,34 @@ class Inventory {
 const inventory = new Inventory();
 inventory.addProduct(prod1);
 inventory.listProducts(); // Expected output: "Product: Laptop, ID: 101, Price: $1200, Stock: 5"
+
+// Task 4 - Implemented Order Management
+class InventoryWithOrders extends Inventory {
+    constructor() {
+        super();
+        this.orders = [];
+    }
+
+    placeOrder(orderId, product, quantity) {
+        if (product.stock >= quantity) {
+            const newOrder = new Order(orderId, product, quantity);
+            this.orders.push(newOrder);
+        } else {
+            console.log("Order cannot be placed due to insufficient stock!");
+        }
+    }
+
+    listOrders() {
+        this.orders.forEach(order => console.log(order.getOrderDetails()));
+    }
+}
+
+// Test Case for Task 4
+const inventoryWithOrders = new InventoryWithOrders();
+inventoryWithOrders.addProduct(prod1);
+inventoryWithOrders.placeOrder(601, prod1, 2);
+inventoryWithOrders.listOrders(); 
+// Expected output: "Order ID: 601, Product: Laptop, Quantity: 2, Total Price: $2400"
+
+console.log(prod1.getDetails());
+// Expected output: "Product: Laptop, ID: 101, Price: $1200, Stock: 3"
